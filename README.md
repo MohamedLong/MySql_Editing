@@ -21,7 +21,7 @@ This Flask application allows users to manage MySQL database columns, including 
 
 1. Clone this repository:
     ```bash
-    git clone https://github.com/yourusername/mysql-column-management-app.git
+    git clone https://github.com/MohamedLong/MySql_Editing.git
     cd mysql-column-management-app
 2. Create a virtual environment (optional but recommended):
     python3 -m venv venv
@@ -46,3 +46,5 @@ This Flask application allows users to manage MySQL database columns, including 
     3. Click the "Delete Column" button to delete the column.
 
 
+##  Backup Mechanism
+    The app automatically creates a backup of the specified database before any operation (add, update, or delete). The backup is stored in the downloads/ folder with a timestamped filename (<database_name>_<YYYY-MM-DD>.sql).
