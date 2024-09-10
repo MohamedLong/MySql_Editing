@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage MySQL Columns</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <!-- Add Column Section -->
+        <h2>Add Column</h2>
+        <form action="/" method="post">
+            <label for="host">Host:</label>
+            <input type="text" id="host" name="host" required>
+
+            <label for="user">User:</label>
+            <input type="text" id="user" name="user" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="database">Database:</label>
+            <input type="text" id="database" name="database" required>
+
+            <label for="test_column">Column Name to Add:</label>
+            <input type="text" id="test_column" name="test_column" required>
+
+            <div class="datatype-row">
+                <label for="datatype">Datatype:</label>
+                <select id="datatype" name="datatype">
+                    <option value="VARCHAR">VARCHAR</option>
+                    <option value="INT">INT</option>
+                    <!-- Add more options as needed -->
+                </select>
+
+                <label for="length">Length:</label>
+                <input type="number" id="length" name="length" maxlength="3">
+            </div>
+
+            <label for="allow_null">Allow Null:</label>
+            <input type="checkbox" id="allow_null" name="allow_null">
+
+            <label for="default">Default Value:</label>
+            <input type="text" id="default" name="default">
+
+            <label for="table_suffix">Table Suffix:</label>
+            <input type="text" id="table_suffix" name="table_suffix">
+
+            <input type="submit" value="Add Column">
+        </form>
+
+        {% if success_tables %}
+        <div class="success-message">
+            <p>DB Backup is done and the column has been successfully added to the following tables:</p>
+            <ul>
+                {% for table in success_tables %}
+                <li>{{ table }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <hr>
+
+    <!-- Update Column Section -->
+    <div class="container">
+        <h2>Update Column</h2>
+        <form action="/update" method="post">
+            <label for="host">Host:</label>
+            <input type="text" id="host" name="host" required>
+
+            <label for="user">User:</label>
+            <input type="text" id="user" name="user" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="database">Database:</label>
+            <input type="text" id="database" name="database" required>
+
+            <label for="table_name">Table Name:</label>
+            <input type="text" id="table_name" name="table_name" required>
+
+            <label for="old_column_name">Old Column Name:</label>
+            <input type="text" id="old_column_name" name="old_column_name" required>
+
+            <label for="new_column_name">New Column Name:</label>
+            <input type="text" id="new_column_name" name="new_column_name" required>
+
+            <input type="submit" value="Update Column">
+        </form>
+
+        {% with update_success_message = get_flashed_messages(category_filter=["update_success"]) %}
+        {% if update_success_message %}
+        <div class="success-message">
+            {{ update_success_message }}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+    <hr>
+
+    <!-- Delete Column Section -->
+    <div class="container">
+        <h2>Delete Column</h2>
+        <form action="/delete" method="post">
+            <label for="host">Host:</label>
+            <input type="text" id="host" name="host" required>
+
+            <label for="user">User:</label>
+            <input type="text" id="user" name="user" required>
+
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+
+            <label for="database">Database:</label>
+            <input type="text" id="database" name="database" required>
+
+            <label for="table_name">Table Name:</label>
+            <input type="text" id="table_name" name="table_name" required>
+
+            <label for="column_name">Column Name to Delete:</label>
+            <input type="text" id="column_name" name="column_name" required>
+
+            <input type="submit" value="Delete Column" class="delete-button">
+        </form>
+
+        {% with delete_success_message = get_flashed_messages(category_filter=["delete_success"]) %}
+        {% if delete_success_message %}
+        <div class="success-message">
+            {{ delete_success_message }}
+        </div>
+        {% endif %}
+        {% endwith %}
+    </div>
+
+</body>
+
+</html>
